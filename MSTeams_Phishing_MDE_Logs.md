@@ -2,7 +2,9 @@
 
 ## Sources
 https://posts.inthecyber.com/leveraging-microsoft-teams-for-initial-access-42beb07f12c4 
+
 https://labs.jumpsec.com/advisory-idor-in-microsoft-teams-allows-for-external-tenants-to-introduce-malware/
+
 https://github.com/Octoberfest7/TeamsPhisher
 
 ## Topic intro
@@ -14,7 +16,7 @@ https://github.com/Octoberfest7/TeamsPhisher
 * Detection is based on Defender for Endpoint logs, DeviceProcessEvents table
 * Correlation of ActionType ProcessCreated and FileRenamed
 * Whitelisting of common domains present in organisation
-* 
+  
 
 ### KQL
 
