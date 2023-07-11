@@ -18,6 +18,7 @@ https://github.com/Octoberfest7/TeamsPhisher
 * Detection is based on Defender for Endpoint logs, DeviceProcessEvents table
 * Correlation of ActionType ProcessCreated and FileRenamed
 * Whitelisting of common domains present in organisation
+* Query is not optimised with KQL best practices 
   
 
 ### KQL
