@@ -1,12 +1,20 @@
-# Detecting TeamsPhisher 
-## Hunt Tags
+# Detecting TeamsPhisher tool and MS Phishing [Malware delivery] - Defender for Enpoint logs
 
+## Sources
+https://posts.inthecyber.com/leveraging-microsoft-teams-for-initial-access-42beb07f12c4 
+https://labs.jumpsec.com/advisory-idor-in-microsoft-teams-allows-for-external-tenants-to-introduce-malware/
+https://github.com/Octoberfest7/TeamsPhisher
 
 ## Topic intro
-* 
+* This query should be able to detect files sent from external domains using MS Teams.
+* Detections of TeamsPhisher activity and manual non enterprise external MS Teams accounts phishing. 
+
 
 ## Detection description
-
+* Detection is based on Defender for Endpoint logs, DeviceProcessEvents table
+* Correlation of ActionType ProcessCreated and FileRenamed
+* Whitelisting of common domains present in organisation
+* 
 
 ### KQL
 
@@ -23,8 +31,8 @@ DeviceProcessEvents
 //| where OneDriveSuspiciousURL !contains "ORGTENANTNAME.sharepoint.com" //whitelisting organisation sharepoint pages
 //| where OneDriveSuspiciousURL !contains "ORGTENANTNAME-my.sharepoint.com" 
 | where OneDriveSuspiciousURL !contains "statics.teams.cdn."
-| where OneDriveSuspiciousURL contains "sharepoint.com" / enterprise sharepoint with Azure AD, used by TeamsPhisher tool 
-  or OneDriveSuspiciousURL startswith "https://1drv.ms" / private sharepoint, phishing from non enterprise accounts like gmail etc.
+| where OneDriveSuspiciousURL contains "sharepoint.com" // enterprise sharepoint with Azure AD, used by TeamsPhisher tool 
+  or OneDriveSuspiciousURL startswith "https://1drv.ms" // private sharepoint, phishing from non enterprise accounts like gmail etc.
 | extend URLParsed = parse_url(OneDriveSuspiciousURL)
 | extend SenderSharepointDomain = tostring(URLParsed.Host)
 | where SenderSharepointDomain !in (SenderSharepointDomainBaseline)
