@@ -1,4 +1,4 @@
-# Detecting TeamsPhisher tool and MS Phishing [Malware delivery] - Defender for Enpoint logs
+# Detecting TeamsPhisher tool and MS Teams Phishing [Malware delivery] - Defender for Enpoint logs
 
 ## Sources
 https://posts.inthecyber.com/leveraging-microsoft-teams-for-initial-access-42beb07f12c4 
