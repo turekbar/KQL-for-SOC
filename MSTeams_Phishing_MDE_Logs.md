@@ -8,8 +8,10 @@ https://labs.jumpsec.com/advisory-idor-in-microsoft-teams-allows-for-external-te
 https://github.com/Octoberfest7/TeamsPhisher
 
 ## Topic intro
-* This query should be able to detect files sent from external domains using MS Teams.
-* Detections of TeamsPhisher activity and manual non enterprise external MS Teams accounts phishing. 
+* This query was be able to detect files sent from external domains using MS Teams.
+* Detections of TeamsPhisher activity and manual non enterprise external MS Teams accounts phishing.
+* This query can't detect MS Teams phishing URLs (lack of logs with this info or logs after sampling like CloudAppEvents)
+* FileRenamed used instead of FileCreated because MDE is sampling FileCreated (not all file creations are logged)
 
 
 ## Detection description
@@ -72,5 +74,20 @@ DeviceProcessEvents
 ```
 
 
-## References
-* 
+## Query results
+![image](https://github.com/turekbar/KQL-for-SOC/assets/139212782/92836c2c-74ee-43f5-918c-05da1428357f)
+
+## Recommendation
+* Scheduling setting: Query every 1h, Time range 1h
+* Baseline can be created using this query:
+```C#
+DeviceProcessEvents
+| where InitiatingProcessFileName == "Teams.exe" and InitiatingProcessCommandLine !contains "https://teams.microsoft.com/l/meetup-join"
+| parse-where ProcessCommandLine with * "--single-argument " OneDriveSuspiciousURL
+| where OneDriveSuspiciousURL !contains "statics.teams.cdn."
+| where OneDriveSuspiciousURL contains "sharepoint.com" or OneDriveSuspiciousURL startswith "https://1drv.ms"
+| extend URLParsed = parse_url(OneDriveSuspiciousURL)
+| extend SenderSharepointDomain = tostring(URLParsed.Host)
+| summarize count() by SenderSharepointDomain 
+
+```
