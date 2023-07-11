@@ -78,6 +78,11 @@ DeviceProcessEvents
 ## Query results
 ![image](https://github.com/turekbar/KQL-for-SOC/assets/139212782/92836c2c-74ee-43f5-918c-05da1428357f)
 
+## Victim view
+![image](https://github.com/turekbar/KQL-for-SOC/assets/139212782/ef2ebf18-b1d0-48c7-bc3c-0acf99b28c2a)
+
+
+
 ## Recommendation
 * Scheduling setting: Query every 1h, Time range 1h
 * Baseline can be created using this query:
